@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 23:27:38 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/29 20:34:06 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/02/01 18:05:19 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 
 # define BUFF_SIZE 8
 
-int		get_next_line(const int fd, char **line);
+typedef	struct	s_gnl
+{
+	char		*s;
+	size_t		len;
+	int			fd;
+}				t_gnl;
+
+int				get_next_line(const int fd, char **line);
 
 #endif

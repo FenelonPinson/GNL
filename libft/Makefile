@@ -6,7 +6,7 @@
 #    By: fepinson <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/12 18:43:04 by fepinson          #+#    #+#              #
-#    Updated: 2019/01/26 19:44:06 by fepinson         ###   ########.fr        #
+#    Updated: 2019/01/31 15:42:56 by fepinson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ NAME		=	libft.a
 
 CC			=	clang
 
-SRCS		=	bzero			\
+SRCS		=	memdup			\
+				bzero			\
 				itoa			\
 				memalloc		\
 				memcpy			\

@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_memdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 19:16:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/31 15:25:01 by fepinson         ###   ########.fr       */
+/*   Created: 2019/01/31 15:27:43 by fepinson          #+#    #+#             */
+/*   Updated: 2019/01/31 15:35:21 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memalloc(size_t size)
+void	*ft_memdup(void *p, size_t n)
 {
-	void		*p;
+	void *rt;
 
-	if ((p = malloc(size)))
-		ft_memset(p, 0, size);
-	return (p);
+	rt = malloc(n);
+	return (ft_memmove(rt, p, n));
 }

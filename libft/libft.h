@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 19:15:36 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/29 20:40:08 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/01/31 15:39:33 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+void				*ft_memdup(void *p, size_t n);
 
 int					get_next_line(const int fd, char **line);
 

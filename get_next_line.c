@@ -6,38 +6,109 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 23:26:18 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/30 14:25:57 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/02/01 18:05:15 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+static t_list *find_fd(t_list *list, int fd)
+{
+	if (list)
+	{
+		while (list->next)
+		{
+			if (((t_gnl *)list->content)->fd == fd)
+				return (list);
+			list = list->next;
+		}
+	}
+	return (list);
+}
+
+void	del_gnl(void *s, size_t n)
+{
+	t_gnl *p;
+
+
+	if ((p = (t_gnl*)s))
+	{
+		free(p->s);
+		free(p);
+	}
+}
+
+void	*new_gnl(char *str, size_t len, const int fd)
+{
+	t_gnl	*gnl;
+
+	if (!(gnl = (t_gnl *)malloc(sizeof(t_gnl))))
+	{
+		gnl->s = str;
+		gnl->len = len;
+		gnl->fd = (int)fd;
+	}
+	return ((void *)gnl);
+}
+
+int		handleft(char *line, t_list *left, int rt, size_t sz)
+{
+	char	*s1;
+	char	*s2;
+	size_t	len;
+
+	s1 = line;
+	len = ((t_gnl *)left->content)->len;
+	if (!(line = (char *)ft_memalloc(sizeof(char) * (sz + 1)))
+			|| !(s2 = (char *)malloc(sizeof(char) * len)))
+		return (-1);
+	ft_memcpy((void *)line, (void *)s1, sz);
+	ft_memcpy((void *)((t_gnl *)left->content)->s, (void *)s1 + sz, len);
+	return (rt ? 1 : 0);
+}
+
+int		read_loop(char *line, t_list *left)
+{
+	char		buf[BUFF_SIZE];
+	char		*s;
+	size_t		sz;
+	int			rt;
+
+	if (!left)
+		return (-1);
+	if (((t_gnl *)left->content)->s)
+		line = ((t_gnl *)left->content)->s;
+	sz = line ? ((t_gnl *)left->content)->len : 0;
+	while (!(((t_gnl *)left)->s = (char *)ft_memchr((void *)line, 10, BUFF_SIZE))
+			&& (rt = read(((t_gnl *)left->content)->fd, buf, BUFF_SIZE)) > 0)
+	{
+		if (!(s = (char *)malloc(sizeof(char) * (sz + rt))))
+			return (-1);
+		ft_memcpy((void *)s, (void *)line, (size_t)sz);
+		ft_memcpy((void *)(s + sz), (void *)buf, (size_t)rt);
+		line ? free(line) : 0;
+		line = s;
+		sz += (size_t)rt;
+	}
+	((t_gnl *)left->content)->len = sz -
+		(size_t)(((t_gnl *)left->content)->s - line);
+	sz = (size_t)(((t_gnl *)left->content)->s - line);
+	return (handleft(line, left, rt, sz));
+}
+
 int		get_next_line(const int fd, char **line)
 {
-	static	char	left[OPEN_MAX][BUFF_SIZE + 1];
-	char			buff[BUFF_SIZE + 1];
-	char			*s1;
-	char			*s2;
+	static t_list	*left;
+	t_list			*left_fd;
 	int				rt;
 
-	if (fd < 0 || fd > OPEN_MAX || !line || !(*line = !*left[fd]
-				? (char *)ft_memalloc(sizeof(char)) : ft_strdup(left[fd])))
+	if (fd < 0 || fd > OPEN_MAX || !line)
 		return (-1);
-	ft_memset((void *)buff, 0, BUFF_SIZE + 1);
-	ft_memset((void *)left[fd], 0, BUFF_SIZE + 1);
-	while (*line && !ft_strchr(*line, '\n')
-			&& (rt = read(fd, buff, BUFF_SIZE)) > 0)
-	{
-		buff[rt] = 0;
-		*line = ft_dyncat(*line, buff, ft_strlen(*line) + ft_strlen(buff), 1);
-	}
-	if (!rt)
-		return (*line && **line ? 1 : 0);
-	if (*line && (int)(s1 = ft_strchr(*line, '\n') + 1) != 1)
-		ft_strncpy(left[fd], s1, ft_strlen(s1));
-	s2 = *line;
-	*line = !*line || (int)s1 == 1 || s1 == s2 ? ft_strdup("")
-		: ft_strndup(s2, (size_t)(s1 - s2) - 1);
-	free(s2);
-	return (rt == -1 || !*line ? -1 : 1);
+	if (!left)
+		left = ft_lstnew(new_gnl(NULL, 0, fd), sizeof(t_list));
+	else if (!(left_fd = find_fd(left, fd)))
+		ft_lstadd(&left, ft_lstnew(new_gnl(NULL, 0, fd), sizeof(t_list)));
+	if (!(rt = read_loop(*line, left)))
+		ft_lstdel(left);
+
 }
