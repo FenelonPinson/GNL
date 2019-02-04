@@ -6,7 +6,7 @@
 #    By: fepinson <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/12 18:43:04 by fepinson          #+#    #+#              #
-#    Updated: 2019/01/31 15:42:56 by fepinson         ###   ########.fr        #
+#    Updated: 2019/02/04 16:51:29 by fepinson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,7 @@ SRCS		:=	$(addsuffix .c, $(SRCS))
 
 OBJS		=	$(SRCS:.c=.o)
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g3
 
 CPPFLAGS	=	-I$(INC_DIR)
 

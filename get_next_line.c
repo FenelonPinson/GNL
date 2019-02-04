@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 23:26:18 by fepinson          #+#    #+#             */
-/*   Updated: 2019/02/01 18:05:15 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/02/04 18:16:17 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*new_gnl(char *str, size_t len, const int fd)
 {
 	t_gnl	*gnl;
 
-	if (!(gnl = (t_gnl *)malloc(sizeof(t_gnl))))
+	if ((gnl = (t_gnl *)malloc(sizeof(t_gnl))))
 	{
 		gnl->s = str;
 		gnl->len = len;
@@ -76,10 +76,10 @@ int		read_loop(char *line, t_list *left)
 
 	if (!left)
 		return (-1);
-	if (((t_gnl *)left->content)->s)
-		line = ((t_gnl *)left->content)->s;
-	sz = line ? ((t_gnl *)left->content)->len : 0;
-	while (!(((t_gnl *)left)->s = (char *)ft_memchr((void *)line, 10, BUFF_SIZE))
+	line = ((t_gnl *)left->content)->s ? ((t_gnl *)left->content)->s : NULL;
+	sz = ((t_gnl *)left->content)->len;
+	while (!(((t_gnl *)left)->s = line
+				? (char *)ft_memchr((void *)line, 10, BUFF_SIZE) : NULL)
 			&& (rt = read(((t_gnl *)left->content)->fd, buf, BUFF_SIZE)) > 0)
 	{
 		if (!(s = (char *)malloc(sizeof(char) * (sz + rt))))
@@ -100,15 +100,23 @@ int		get_next_line(const int fd, char **line)
 {
 	static t_list	*left;
 	t_list			*left_fd;
+	t_list			*buf;
 	int				rt;
 
+	left_fd = NULL;
 	if (fd < 0 || fd > OPEN_MAX || !line)
 		return (-1);
 	if (!left)
-		left = ft_lstnew(new_gnl(NULL, 0, fd), sizeof(t_list));
+		left = ft_lstnew(new_gnl(NULL, 0, fd), sizeof(t_gnl *));
 	else if (!(left_fd = find_fd(left, fd)))
-		ft_lstadd(&left, ft_lstnew(new_gnl(NULL, 0, fd), sizeof(t_list)));
-	if (!(rt = read_loop(*line, left)))
-		ft_lstdel(left);
-
+		ft_lstadd(&left, ft_lstnew(new_gnl(NULL, 0, fd), sizeof(t_gnl)));
+	if (!(rt = read_loop(*line, !left_fd ? left : left_fd)))
+	{
+		buf = left;
+		while (buf->next != left_fd)
+			buf = buf->next;
+		buf->next = left_fd->next;
+		ft_lstdel(&left_fd, del_gnl);
+	}
+	return (rt);
 }
