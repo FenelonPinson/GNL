@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 23:26:18 by fepinson          #+#    #+#             */
-/*   Updated: 2019/02/04 18:26:56 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/04/17 15:04:48 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	del_gnl(void *s, size_t n)
 	}
 }
 
-void	*new_gnl(char *str, size_t len, const int fd)
+t_gnl	*new_gnl(char *str, size_t len, const int fd)
 {
 	t_gnl	*gnl;
 
@@ -48,7 +48,7 @@ void	*new_gnl(char *str, size_t len, const int fd)
 		gnl->len = len;
 		gnl->fd = (int)fd;
 	}
-	return ((void *)gnl);
+	return (gnl);
 }
 
 int		handleft(char *line, t_list *left, int rt, size_t sz)
@@ -78,7 +78,7 @@ int		read_loop(char *line, t_list *left)
 		return (-1);
 	line = ((t_gnl *)left->content)->s ? ((t_gnl *)left->content)->s : NULL;
 	sz = ((t_gnl *)left->content)->len;
-	while (!(((t_gnl *)left)->s = line
+	while (!(((t_gnl *)left->content)->s = line
 				? (char *)ft_memchr((void *)line, 10, BUFF_SIZE) : NULL)
 			&& (rt = read(((t_gnl *)left->content)->fd, buf, BUFF_SIZE)) > 0)
 	{
@@ -102,14 +102,20 @@ int		get_next_line(const int fd, char **line)
 	t_list			*left_fd;
 	t_list			*buf;
 	int				rt;
+	void *			pt;
 
 	left_fd = NULL;
 	if (fd < 0 || fd > OPEN_MAX || !line)
 		return (-1);
-	if (!left)
-		left = ft_lstnew(new_gnl(NULL, 0, fd), sizeof(t_gnl *));
-	else if (!(left_fd = find_fd(left, fd)))
-		ft_lstadd(&left, ft_lstnew(new_gnl(NULL, 0, fd), sizeof(t_gnl)));
+	if (!left || !(left_fd = find_fd(left, fd)))
+	{
+		if (!(pt = (void *)new_gnl(NULL, 0, fd)))
+				return (-1);
+		if (!left)
+			left = ft_lstnew(pt, sizeof(t_gnl *));
+		else
+			ft_lstadd(&left, ft_lstnew(pt, sizeof(t_gnl *)));
+	}
 	if (!(rt = read_loop(*line, !left_fd ? left : left_fd)))
 	{
 		buf = left;
