@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 23:26:18 by fepinson          #+#    #+#             */
-/*   Updated: 2019/04/17 17:29:07 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/04/17 18:01:33 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		get_next_line(const int fd, char **line)
 	t_list			*left_fd;
 	t_list			*buf;
 	int				rt;
-	const void *	pt;
+	const void		*pt;
 
 	left_fd = NULL;
 	if (fd < 0 || fd > OPEN_MAX || !line)

@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 19:16:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/04/17 17:52:24 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/04/17 18:01:39 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 		return (NULL);
 	if (content)
 	{
-		if (!(new->content = ft_memalloc(content_size)))
-			return (NULL);
-		new->content = memcpy(new->content, content, content_size);
-	}
+	
+	:q}
 	else
 		new->content = NULL;
 	new->content_size = content_size;
