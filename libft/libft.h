@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 19:15:36 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/31 15:39:33 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/04/18 15:26:21 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <limits.h>
 
-#define BUF_SIZE 32
+# define BUFF_SIZE 32
 
 typedef struct		s_list
 {
@@ -26,9 +26,9 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-void				*ft_memdup(void *p, size_t n);
+void				ft_xorswap(void *p1, void *p2);
 
-int					get_next_line(const int fd, char **line);
+int					ft_get_next_line(const int fd, char **line);
 
 int					ft_atoi_cbase(const char *str, char *base);
 
@@ -70,7 +70,7 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
-void				ft_bzero(void *s, size_t n);
+void				ft_bzero(void *s, ssize_t n);
 
 char				*ft_strcpy(char *dst, const char *src);
 

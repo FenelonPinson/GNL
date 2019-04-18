@@ -6,21 +6,23 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 19:16:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/02/04 18:26:55 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/01/04 21:46:05 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	unsigned char	*p1;
-	unsigned char	*p2;
+	t_list *buf;
 
-	p1 = (unsigned char *)dest;
-	p2 = (unsigned char *)src;
-	while (--n)
-		p1[n] = p2[n];
-	p1[n] = p2[n];
-	return (dest);
+	if (!alst || !*alst)
+		return ;
+	while (*alst)
+	{
+		del((*alst)->content, (*alst)->content_size);
+		buf = (*alst)->next;
+		free(*alst);
+		*alst = buf;
+	}
 }

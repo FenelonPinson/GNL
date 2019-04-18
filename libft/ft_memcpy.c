@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdup.c                                        :+:      :+:    :+:   */
+/*   memset.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/31 15:27:43 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/31 15:35:21 by fepinson         ###   ########.fr       */
+/*   Created: 2018/11/09 19:16:55 by fepinson          #+#    #+#             */
+/*   Updated: 2019/01/04 15:41:01 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memdup(void *p, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	void *rt;
+	size_t	i;
 
-	rt = malloc(n);
-	return (ft_memmove(rt, p, n));
+	i = -1;
+	while (++i < n)
+		ft_memset(dest + i, (int)*((unsigned char *)src + i), 1);
+	return (dest);
 }

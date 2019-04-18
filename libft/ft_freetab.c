@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memset.c                                           :+:      :+:    :+:   */
+/*   ft_freetab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 19:16:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/02/01 11:35:44 by fepinson         ###   ########.fr       */
+/*   Created: 2019/01/08 02:43:21 by fepinson          #+#    #+#             */
+/*   Updated: 2019/01/08 18:40:03 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+void	ft_freetab(char **tab)
 {
-	t_list *buf;
+	int i;
 
-	if (!alst)
-		return ;
-	while (*alst)
-	{
-		if (del)
-			del((*alst)->content, (*alst)->content_size);
-		else
-			free((*alst)->content);
-		buf = (*alst)->next;
-		free(*alst);
-		*alst = buf;
-	}
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab[i]);
+	free(tab);
 }

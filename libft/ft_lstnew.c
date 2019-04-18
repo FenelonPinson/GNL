@@ -6,27 +6,30 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 19:16:55 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/25 22:14:25 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/01/05 02:20:40 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmap(char *s, char (*f)(char))
+t_list	*ft_lstnew(void const *content, size_t content_size)
 {
-	char		*r;
-	int			i;
+	t_list		*new;
 
-	i = 0;
-	if ((r = (char *)malloc(sizeof(char) * (ft_strlen((char *)s) + 1)))
-			&& f && s)
+	if (!(new = (t_list *)malloc(sizeof(t_list))))
+		return (NULL);
+	if (content)
 	{
-		while (s[i])
-		{
-			r[i] = f(s[i]);
-			++i;
-		}
-		r[i] = 0;
+		if (!(new->content = (void *)ft_memalloc(content_size)))
+			return (NULL);
+		ft_memcpy(new->content, content, content_size);
+		new->content_size = content_size;
 	}
-	return (r);
+	else
+	{
+		new->content = NULL;
+		new->content_size = 0;
+	}
+	new->next = NULL;
+	return (new);
 }

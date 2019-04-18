@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fepinson <pinsonfen@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/28 18:51:43 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/25 21:53:14 by fepinson         ###   ########.fr       */
+/*   Created: 2018/08/28 18:48:22 by fepinson          #+#    #+#             */
+/*   Updated: 2019/01/25 18:50:58 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+char	*ft_strcat(char *s1, const char *s2)
 {
-	char		*d;
-	const char	*s;
-	size_t		n;
-	size_t		dlen;
+	int i;
+	int j;
 
-	d = dst;
-	s = src;
-	n = size;
-	while (n-- != 0 && *d != '\0')
-		d++;
-	dlen = d - dst;
-	n = size - dlen;
-	if (n == 0)
-		return (dlen + ft_strlen(s));
-	while (*s != '\0')
-	{
-		if (n != 1)
-		{
-			*d++ = *s;
-			n--;
-		}
-		s++;
-	}
-	return (dlen + (s - src));
+	i = 0;
+	j = 0;
+	while (s1[i])
+		++i;
+	while (s2[j])
+		s1[i++] = s2[j++];
+	s1[i] = 0;
+	return (s1);
 }
