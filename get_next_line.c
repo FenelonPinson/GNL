@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 23:26:18 by fepinson          #+#    #+#             */
-/*   Updated: 2019/04/17 18:01:33 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/04/18 13:22:41 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,19 +102,19 @@ int		get_next_line(const int fd, char **line)
 	t_list			*left_fd;
 	t_list			*buf;
 	int				rt;
-	const void		*pt;
+	t_gnl		*pt;
 
 	left_fd = NULL;
 	if (fd < 0 || fd > OPEN_MAX || !line)
 		return (-1);
 	if (!left || !(left_fd = find_fd(left, fd)))
 	{
-		if (!(pt = (const void *)new_gnl(NULL, 0, fd)))
+		if (!(pt = new_gnl(NULL, 0, fd)))
 				return (-1);
 		if (!left)
-			left = ft_lstnew(pt, sizeof(t_gnl *));
+			 left = ft_lstnew((void const *)pt, sizeof(t_gnl *));
 		else
-			ft_lstadd(&left, ft_lstnew(pt, sizeof(t_gnl *)));
+			ft_lstadd(&left, ft_lstnew((void const *)pt, sizeof(t_gnl *)));
 	}
 	if (!(rt = read_loop(*line, !left_fd ? left : left_fd)))
 	{
@@ -124,5 +124,6 @@ int		get_next_line(const int fd, char **line)
 		buf->next = left_fd->next;
 		ft_lstdel(&left_fd, del_gnl);
 	}
+	free(pt);
 	return (rt);
 }
