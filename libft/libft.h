@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 19:15:36 by fepinson          #+#    #+#             */
-/*   Updated: 2019/04/18 15:26:21 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/04/18 22:29:04 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <limits.h>
 
-# define BUFF_SIZE 32
 
 typedef struct		s_list
 {
@@ -27,8 +26,6 @@ typedef struct		s_list
 }					t_list;
 
 void				ft_xorswap(void *p1, void *p2);
-
-int					ft_get_next_line(const int fd, char **line);
 
 int					ft_atoi_cbase(const char *str, char *base);
 

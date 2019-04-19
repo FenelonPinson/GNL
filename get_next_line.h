@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 23:27:38 by fepinson          #+#    #+#             */
-/*   Updated: 2019/02/01 18:05:19 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/04/19 11:13:39 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <fcntl.h>
 # include <limits.h>
 
-# define BUFF_SIZE 8
+# define BUFF_SIZE 1024
 
 typedef	struct	s_gnl
 {

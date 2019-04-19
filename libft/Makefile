@@ -6,7 +6,7 @@
 #    By: fepinson <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/12 18:43:04 by fepinson          #+#    #+#              #
-#    Updated: 2019/01/25 14:40:18 by fepinson         ###   ########.fr        #
+#    Updated: 2019/04/18 22:29:18 by fepinson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,8 +94,7 @@ SRCS		=	$(SRC_DIR)/ft_bzero.c			\
 				$(SRC_DIR)/ft_freetab.c			\
 				$(SRC_DIR)/ft_strssplit.c		\
 				$(SRC_DIR)/ft_itoa_base.c		\
-				$(SRC_DIR)/ft_itoa_cbase.c		\
-				$(SRC_DIR)/ft_get_next_line.c
+				$(SRC_DIR)/ft_itoa_cbase.c
 
 OBJS		=	$(SRCS:.c=.o)
 
