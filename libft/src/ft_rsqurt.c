@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_rsqurt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/08 23:27:38 by fepinson          #+#    #+#             */
-/*   Updated: 2019/06/15 19:43:18 by fepinson         ###   ########.fr       */
+/*   Created: 2019/06/15 17:53:00 by fepinson          #+#    #+#             */
+/*   Updated: 2019/06/15 19:37:04 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include <fcntl.h>
-# include <limits.h>
-
-# define BUFF_SIZE 32
-
-typedef	struct	s_gnl
+int		ft_rsqrt(int n)
 {
-	char		*s;
-	size_t		len;
-	int			fd;
-}				t_gnl;
+	int	large;
+	int	small;
 
-int				get_next_line(const int fd, char **line);
-
-#endif
+	if (n < 0)
+		return (0);
+	if (n < 2)
+		return (n);
+	else
+	{
+		small = ft_rsqrt(n >> 2) << 1;
+		large = small + 1;
+		if (small * large > n)
+			return (small);
+		else
+			return (large);
+	}
+}

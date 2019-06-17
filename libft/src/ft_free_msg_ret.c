@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   ft_free_msg_ret.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fepinson <pinsonfen@gmail.com>             +#+  +:+       +#+        */
+/*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/28 18:48:22 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/25 18:50:58 by fepinson         ###   ########.fr       */
+/*   Created: 2019/06/15 17:59:16 by fepinson          #+#    #+#             */
+/*   Updated: 2019/06/15 18:00:04 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
-char	*ft_strcat(char *s1, const char *s2)
+int	ft_free_msg_ret(void *p, char *s, int i)
 {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (s1[i])
-		++i;
-	while (s2[j])
-		s1[i++] = s2[j++];
-	s1[i] = 0;
-	return (s1);
+	if (s)
+		ft_putendl(s);
+	if (p)
+		free(p);
+	return (i);
 }

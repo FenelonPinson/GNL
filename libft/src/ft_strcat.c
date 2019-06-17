@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stncmp.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fepinson <pinsonfen@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/28 18:13:56 by fepinson          #+#    #+#             */
-/*   Updated: 2019/01/25 18:55:00 by fepinson         ###   ########.fr       */
+/*   Created: 2018/08/28 18:48:22 by fepinson          #+#    #+#             */
+/*   Updated: 2018/12/05 16:55:41 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+char	*ft_strcat(char *s1, char *s2)
 {
-	while (*s1 == *s2 && n--)
-	{
-		if (!*s1 || !*s2)
-			return (0);
-		++s1;
-		++s2;
-	}
-	if (!n)
-		return (0);
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (s1[i])
+		++i;
+	while (s2[j])
+		s1[i++] = s2[j++];
+	s1[i] = 0;
+	return (s1);
 }

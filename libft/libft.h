@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 19:15:36 by fepinson          #+#    #+#             */
-/*   Updated: 2019/04/18 22:29:04 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/15 19:31:07 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <limits.h>
 
-
 typedef struct		s_list
 {
 	void			*content;
@@ -25,7 +24,9 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-void				ft_xorswap(void *p1, void *p2);
+int					ft_free_msg_ret(void *p, char *s, int i);
+
+int					ft_rsqrt(int n);
 
 int					ft_atoi_cbase(const char *str, char *base);
 
@@ -71,7 +72,7 @@ void				ft_bzero(void *s, ssize_t n);
 
 char				*ft_strcpy(char *dst, const char *src);
 
-char				*ft_strcat(char *s1, const char *s2);
+char				*ft_strcat(char *s1, char *s2);
 
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 
@@ -114,7 +115,7 @@ void				*ft_memccpy(void *dest, void *src, int c, size_t size);
 
 int					ft_strcmp(const char *s1, const char *s2);
 
-int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strncmp(const char *s1, const char *s2, int n);
 
 void				ft_putchar(char c);
 
@@ -136,7 +137,7 @@ void				ft_strdel(char **as);
 
 void				ft_strclr(char *s);
 
-char				*ft_strdup(const char *s1);
+char				*ft_strdup(char *s);
 
 void				ft_striter(char *s, void (*f)(char *));
 

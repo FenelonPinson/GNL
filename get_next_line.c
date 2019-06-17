@@ -6,7 +6,7 @@
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 23:26:18 by fepinson          #+#    #+#             */
-/*   Updated: 2019/04/19 14:01:36 by fepinson         ###   ########.fr       */
+/*   Updated: 2019/06/17 12:46:03 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 int		ft_split_line(char **line, char *s, char **rest)
 {
-	size_t	i[2];
+	ssize_t	i;
+	ssize_t	j;
 
-	i[1] = ft_strlen(s);
-	if ((i[0] = (size_t)(ft_strchr(s, '\n') - s)))
+	i = ft_strlen(s);
+	if ((j = (size_t)(ft_strchr(s, '\n') - s)))
 	{
-		i[1] -= i[0];
-		if (!(*line = ft_memalloc(i[0] + 1))
-			|| !(*rest = ft_memalloc(i[1] + 1)))
+		i -= j;
+		if (!(*line = (char *)ft_memalloc(j + 1)) 
+			|| !(*rest = (char *)ft_memalloc(i + 1)))
 			return (-1);
-		i[1] = i[0];
-		while (--i[0])
-			(*line)[i[0]] = s[i[0]];
-		*line[i[0]] = s[i[0]];
-		while (s[++i[1]])
-			(*rest)[i[0]++] = s[i[1]];
+		i = j;
+		while (--j != -1)
+			(*line)[j] = s[j];
+		while (s[++i])
+			(*rest)[++j] = s[i];
 	}
 	else
 	{
-		if (!(*line = ft_memalloc(1)))
+		if (!(*line = (char *)ft_memalloc(1)))
 			return (-1);
-		if (i[1] && !(*rest = ft_strdup(s + 1)))
+		if (i && !(*rest = ft_strdup(s + 1)))
 			return (-1);
 	}
 	free(s);

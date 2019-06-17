@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fepinson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/08 23:27:38 by fepinson          #+#    #+#             */
-/*   Updated: 2019/06/15 19:43:18 by fepinson         ###   ########.fr       */
+/*   Created: 2019/01/08 00:47:30 by fepinson          #+#    #+#             */
+/*   Updated: 2019/01/08 19:39:11 by fepinson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include <fcntl.h>
-# include <limits.h>
-
-# define BUFF_SIZE 32
-
-typedef	struct	s_gnl
+void	ft_swap(void *p1, void *p2, size_t n)
 {
-	char		*s;
-	size_t		len;
-	int			fd;
-}				t_gnl;
+	char buf[n];
 
-int				get_next_line(const int fd, char **line);
-
-#endif
+	ft_memmove((void *)buf, p1, n);
+	ft_memmove(p1, p2, n);
+	ft_memmove(p2, (void *)buf, n);
+}

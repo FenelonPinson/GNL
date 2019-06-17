@@ -6,11 +6,11 @@
 #    By: fepinson <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/12 18:43:04 by fepinson          #+#    #+#              #
-#    Updated: 2019/04/18 22:29:18 by fepinson         ###   ########.fr        #
+#    Updated: 2019/06/15 19:34:07 by fepinson         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC_DIR		=	$(realpath .)
+SRC_DIR		=	$(realpath .)/src
 
 INC_DIR		=	$(realpath .)
 
@@ -94,7 +94,10 @@ SRCS		=	$(SRC_DIR)/ft_bzero.c			\
 				$(SRC_DIR)/ft_freetab.c			\
 				$(SRC_DIR)/ft_strssplit.c		\
 				$(SRC_DIR)/ft_itoa_base.c		\
-				$(SRC_DIR)/ft_itoa_cbase.c
+				$(SRC_DIR)/ft_itoa_cbase.c		\
+				$(SRC_DIR)/ft_free_msg_ret.c	\
+				$(SRC_DIR)/ft_rsqurt.c
+
 
 OBJS		=	$(SRCS:.c=.o)
 
@@ -110,9 +113,9 @@ $(NAME):		$(OBJS)
 clean:
 				 $(RM) $(OBJS)
 
-fclean:			clean
+fclean:         clean
 				 $(RM) $(NAME)
 
-re:				fclean all
+re:             fclean all
 
 .PHONY:			all clean fclean re
